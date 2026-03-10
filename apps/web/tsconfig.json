@@ -19,7 +19,11 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@repo/types": ["../../packages/types"],
+      "@repo/ui": ["../../packages/ui"],
+      "@repo/utils": ["../../packages/utils"],
+      "@repo/data": ["../../packages/data"]
     }
   },
   "include": [
