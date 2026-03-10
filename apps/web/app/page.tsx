@@ -9,12 +9,16 @@ export default function Home() {
   const { history } = useHistory();
 
   if (isLoading || !machine) {
-    return <div>Loading...</div>;
+    return (
+      <div className="min-h-[200px] flex items-center justify-center text-gray-500 dark:text-gray-400">
+        Loading...
+      </div>
+    );
   }
   return (
-    <div className="p-8 space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">{machine.name}</h1>
+    <div className="p-8 space-y-8">
+      <div className="flex items-center justify-between gap-4">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{machine.name}</h1>
         <StatusIndicator status={machine.status} />
       </div>
 

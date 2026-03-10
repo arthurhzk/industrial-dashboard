@@ -22,5 +22,17 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  .recharts-tooltip-wrapper {
+    --tw-bg-opacity: 1;
+  }
+  .recharts-default-tooltip {
+    background-color: rgb(31 41 55) !important;
+    border: 1px solid rgb(55 65 81) !important;
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem;
+  }
 }

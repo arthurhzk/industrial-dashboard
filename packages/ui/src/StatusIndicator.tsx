@@ -14,9 +14,11 @@ interface Props {
 
 export function StatusIndicator({ status }: Props) {
   return (
-    <div className="flex items-center gap-2">
-      <div className={`w-3 h-3 rounded-full ${colors[status]}`} />
-      <span className="text-sm font-medium">{status}</span>
+    <div className="flex items-center gap-2 rounded-md px-2.5 py-1.5">
+      <div
+        className={`w-3 h-3 rounded-full ${colors[status]} ${status === "RUNNING" ? "animate-pulse" : ""}`}
+      />
+      <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{status}</span>
     </div>
   );
 }

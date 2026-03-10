@@ -18,21 +18,23 @@ interface Props {
 
 export function MachineChart({ data }: Props) {
   return (
-    <div className="bg-white p-4 rounded-xl border shadow h-[300px]">
-      <h2 className="text-lg font-semibold mb-4">Machine Metrics</h2>
+    <div className="bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-200 dark:border-gray-700 shadow h-[300px] transition-shadow duration-200 hover:shadow-md text-gray-800 dark:text-gray-300">
+      <h2 className="text-lg font-semibold text-gray-600 dark:text-gray-300 mb-5">Machine Metrics</h2>
 
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" stroke="currentColor" strokeOpacity={0.3} />
 
           <XAxis
             dataKey="timestamp"
+            stroke="currentColor"
+            tick={{ fill: "currentColor" }}
             tickFormatter={(value) =>
               new Date(value).toLocaleTimeString()
             }
           />
 
-          <YAxis />
+          <YAxis stroke="currentColor" tick={{ fill: "currentColor" }} />
 
           <Tooltip
             labelFormatter={(value) =>
