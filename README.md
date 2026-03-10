@@ -1,3 +1,5 @@
+Vídeo explicando o funcionamento do projeto no link: https://drive.google.com/file/d/10KnAi06N5Fw4wx7fGzrbXPleYToynPsH/view?usp=sharing
+
 # Dashboard de Monitoramento Industrial
 
 Sistema de monitoramento em tempo real para linha de produção industrial, desenvolvido como desafio técnico. O dashboard fornece visibilidade sobre o estado das máquinas, métricas de performance e alertas operacionais.
@@ -111,3 +113,4 @@ Estrutura simulada de banco com “tabelas” em memória (`machineTable`, `aler
 ## Licença
 
 Projeto desenvolvido para fins de avaliação técnica.
+
