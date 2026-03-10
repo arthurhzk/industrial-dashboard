@@ -7,7 +7,7 @@ export async function GET() {
 
   const machine: Machine = {
     id: "machine-1",
-    name: "Industrial Press A1",
+    name: "Prensa Industrial A1",
     status: "RUNNING",
     metrics,
     operatingTime: 540,

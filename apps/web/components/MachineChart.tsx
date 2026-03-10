@@ -19,7 +19,7 @@ interface Props {
 export function MachineChart({ data }: Props) {
   return (
     <div className="bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-200 dark:border-gray-700 shadow h-[300px] transition-shadow duration-200 hover:shadow-md text-gray-800 dark:text-gray-300">
-      <h2 className="text-lg font-semibold text-gray-600 dark:text-gray-300 mb-5">Machine Metrics</h2>
+      <h2 className="text-lg font-semibold text-gray-600 dark:text-gray-300 mb-5">Métricas da Máquina</h2>
 
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data}>
@@ -30,7 +30,10 @@ export function MachineChart({ data }: Props) {
             stroke="currentColor"
             tick={{ fill: "currentColor" }}
             tickFormatter={(value) =>
-              new Date(value).toLocaleTimeString()
+              new Date(value).toLocaleTimeString("pt-BR", {
+                hour: "2-digit",
+                minute: "2-digit"
+              })
             }
           />
 
@@ -38,7 +41,11 @@ export function MachineChart({ data }: Props) {
 
           <Tooltip
             labelFormatter={(value) =>
-              new Date(value).toLocaleTimeString()
+              new Date(value).toLocaleTimeString("pt-BR", {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+              })
             }
           />
 

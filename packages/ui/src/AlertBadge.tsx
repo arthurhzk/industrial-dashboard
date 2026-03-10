@@ -8,6 +8,13 @@ const colors = {
   CRITICAL: "bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300"
 };
 
+const labels: Record<AlertSeverity, string> = {
+  LOW: "Baixo",
+  MEDIUM: "Médio",
+  HIGH: "Alto",
+  CRITICAL: "Crítico"
+};
+
 interface Props {
   severity: AlertSeverity;
 }
@@ -15,7 +22,7 @@ interface Props {
 export function AlertBadge({ severity }: Props) {
   return (
     <span className={`px-2 py-1 text-xs font-medium rounded-md ${colors[severity]}`}>
-      {severity}
+      {labels[severity]}
     </span>
   );
 }

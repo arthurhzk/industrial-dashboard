@@ -8,6 +8,13 @@ const colors = {
   ERROR: "bg-red-500"
 };
 
+const labels: Record<MachineStatus, string> = {
+  RUNNING: "Ligada",
+  STOPPED: "Desligada",
+  MAINTENANCE: "Manutenção",
+  ERROR: "Erro"
+};
+
 interface Props {
   status: MachineStatus;
 }
@@ -18,7 +25,7 @@ export function StatusIndicator({ status }: Props) {
       <div
         className={`w-3 h-3 rounded-full ${colors[status]} ${status === "RUNNING" ? "animate-pulse" : ""}`}
       />
-      <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{status}</span>
+      <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{labels[status]}</span>
     </div>
   );
 }
