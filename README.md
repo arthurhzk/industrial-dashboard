@@ -1,159 +1,113 @@
-# Turborepo starter
+# Dashboard de Monitoramento Industrial
 
-This Turborepo starter is maintained by the Turborepo core team.
+Sistema de monitoramento em tempo real para linha de produção industrial, desenvolvido como desafio técnico. O dashboard fornece visibilidade sobre o estado das máquinas, métricas de performance e alertas operacionais.
 
-## Using this example
+## Pré-requisitos
 
-Run the following command:
+- **Node.js** 18 ou superior
+- **pnpm** 9.x (gerenciador de pacotes)
 
-```sh
-npx create-turbo@latest
+## Instalação
+
+```bash
+# Clone o repositório (se ainda não tiver)
+git clone <url-do-repositorio>
+cd industrial-dashboard
+
+# Instale as dependências
+pnpm install
 ```
 
-## What's inside?
+## Execução
 
-This Turborepo includes the following packages/apps:
+```bash
+# Desenvolvimento (inicia o servidor Next.js)
+pnpm dev
 
-### Apps and Packages
+# Build de produção
+pnpm build
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
+# Iniciar em modo produção (após o build)
+pnpm start
 ```
 
-Without global `turbo`, use your package manager:
+Para rodar apenas o app web:
 
-```sh
-cd my-turborepo
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+```bash
+pnpm dev --filter=web
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+## Testes
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+```bash
+# Rodar todos os testes
+pnpm test --filter=web
 
-```sh
-turbo build --filter=docs
+# Ou dentro do diretório apps/web
+cd apps/web && pnpm test
+
+# Modo watch (re-executa ao alterar arquivos)
+cd apps/web && pnpm test:watch
 ```
 
-Without global `turbo`:
+## Estrutura do Monorepo
 
-```sh
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+```
+industrial-dashboard/
+├── apps/
+│   └── web/                 # Aplicação Next.js (dashboard)
+├── packages/
+│   ├── types/               # Tipos TypeScript compartilhados
+│   ├── ui/                  # Componentes React reutilizáveis
+│   ├── data/                # Simulador de métricas (fallback)
+│   └── db/                  # Camada de dados estruturada (mock)
+├── turbo.json
+└── pnpm-workspace.yaml
 ```
 
-### Develop
+### Pacotes
 
-To develop all apps and packages, run the following command:
+- **@repo/types** – Interfaces e tipos (Machine, Alert, OEE, etc.)
+- **@repo/ui** – MetricCard, StatusIndicator, AlertBadge
+- **@repo/data** – Funções de geração de métricas simuladas
+- **@repo/db** – Camada de dados com estrutura de “tabelas” em memória
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+## Decisões Técnicas
 
-```sh
-cd my-turborepo
-turbo dev
-```
+### Turborepo
 
-Without global `turbo`, use your package manager:
+Monorepo com Turborepo para compartilhar código entre apps e packages, com cache de build e execução paralela de tarefas.
 
-```sh
-cd my-turborepo
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
+### Next.js 16 + React 19
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+Framework escolhido para SSR, API Routes e boa DX. As rotas `/api/machine`, `/api/alerts` e `/api/history` servem dados simulados em tempo real.
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+### SWR
 
-```sh
-turbo dev --filter=web
-```
+Para fetching e revalidação automática (refresh a cada 2–5 segundos), mantendo a UI atualizada sem polling manual.
 
-Without global `turbo`:
+### Recharts
 
-```sh
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
+Biblioteca de gráficos para histórico de temperatura, RPM e eficiência, com suporte a dark mode.
 
-### Remote Caching
+### Tailwind CSS v4
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+Estilização utilitária e suporte a dark mode via classe `.dark` no `<html>`.
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+### Camada de Dados (@repo/db)
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+Estrutura simulada de banco com “tabelas” em memória (`machineTable`, `alertsTable`, `metricHistoryTable`), preparada para futura migração para SQLite ou outro backend.
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+## Funcionalidades
 
-```sh
-cd my-turborepo
-turbo login
-```
+- **Monitoramento em tempo real**: estados (Ligada, Desligada, Manutenção, Erro), temperatura, RPM, tempo de operação
+- **Indicadores de tendência**: ▲/▼ nos cards de métricas
+- **Gráficos**: histórico de temperatura, RPM e eficiência
+- **Sistema de alertas**: níveis INFO, WARNING, CRITICAL, ordenação por severidade, tempo relativo, feedback visual/sonoro para críticos
+- **Métricas OEE**: Overall, Disponibilidade, Performance, Qualidade
+- **Dark/Light mode**: toggle com persistência em `localStorage`
+- **Status de conexão**: indicação visual de perda de conexão
 
-Without global `turbo`, use your package manager:
+## Licença
 
-```sh
-cd my-turborepo
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+Projeto desenvolvido para fins de avaliação técnica.
