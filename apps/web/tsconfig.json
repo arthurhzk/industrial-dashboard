@@ -23,7 +23,8 @@
       "@repo/types": ["../../packages/types"],
       "@repo/ui": ["../../packages/ui"],
       "@repo/utils": ["../../packages/utils"],
-      "@repo/data": ["../../packages/data"]
+      "@repo/data": ["../../packages/data"],
+      "@repo/db": ["../../packages/db"]
     }
   },
   "include": [

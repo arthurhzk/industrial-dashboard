@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import { generateHistory } from "@repo/data";
+import { getMetricHistory } from "@repo/db";
 
 export async function GET() {
-  const history = generateHistory(30);
-
+  const history = getMetricHistory(30);
   return NextResponse.json(history);
 }
