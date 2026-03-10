@@ -1,52 +1,53 @@
-export type MachineStatus =
+export type MachineState =
   | "RUNNING"
   | "STOPPED"
   | "MAINTENANCE"
   | "ERROR";
 
+export type MachineStatus = MachineState;
+
 export interface MachineMetrics {
   temperature: number;
   rpm: number;
-  vibration: number;
+  uptime: number;
   efficiency: number;
+}
+
+export interface OEE {
+  overall: number;
+  availability: number;
+  performance: number;
+  quality: number;
 }
 
 export interface Machine {
   id: string;
   name: string;
-  status: MachineStatus;
+  status: MachineState;
   metrics: MachineMetrics;
   operatingTime: number;
   lastMaintenance: string;
+  oee: OEE;
 }
 
-export interface HistoricalPoint {
+export interface MetricHistory {
   timestamp: number;
   temperature: number;
   rpm: number;
   efficiency: number;
 }
 
-export type AlertSeverity =
-  | "LOW"
-  | "MEDIUM"
-  | "HIGH"
-  | "CRITICAL";
+export type HistoricalPoint = MetricHistory;
+
+export type AlertLevel = "INFO" | "WARNING" | "CRITICAL";
 
 export interface Alert {
   id: string;
-  machineId: string;
+  level: AlertLevel;
   message: string;
-  severity: AlertSeverity;
+  component: string;
   timestamp: number;
-  resolved: boolean;
-}
-
-export interface OEE {
-  availability: number;
-  performance: number;
-  quality: number;
-  total: number;
+  acknowledged: boolean;
 }
 
 export type ID = string;
