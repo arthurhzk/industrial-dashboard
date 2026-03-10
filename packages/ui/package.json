@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
+    ".": "./index.ts",
     "./*": "./src/*.tsx"
   },
   "scripts": {
@@ -20,6 +21,7 @@
     "typescript": "5.9.2"
   },
   "dependencies": {
+    "@repo/types": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   }

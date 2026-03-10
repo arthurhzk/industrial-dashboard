@@ -1,5 +1,5 @@
 import React from "react";
-import { MachineStatus } from "../types";
+import { MachineState } from "@repo/types";
 
 const colors = {
   RUNNING: "bg-green-500",
@@ -8,7 +8,7 @@ const colors = {
   ERROR: "bg-red-500"
 };
 
-const labels: Record<MachineStatus, string> = {
+const labels: Record<MachineState, string> = {
   RUNNING: "Ligada",
   STOPPED: "Desligada",
   MAINTENANCE: "Manutenção",
@@ -16,7 +16,7 @@ const labels: Record<MachineStatus, string> = {
 };
 
 interface Props {
-  status: MachineStatus;
+  status: MachineState;
 }
 
 export function StatusIndicator({ status }: Props) {
